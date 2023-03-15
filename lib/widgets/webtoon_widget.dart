@@ -18,7 +18,7 @@ class WebtoonCard extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => DetailPage(
+            builder: (context) => DetailScreen(
               title: title,
               thumb: thumb,
               id: id,
