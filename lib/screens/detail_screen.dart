@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_webtoon/models/webtoon_detail_model.dart';
 import 'package:flutter_webtoon/models/webtoon_episode_model.dart';
 import 'package:flutter_webtoon/services/api_service.dart';
 import 'package:flutter_webtoon/widgets/episodeList_widget.dart';
+import 'package:image_network/image_network.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DetailScreen extends StatefulWidget {
@@ -24,6 +27,7 @@ class _DetailScreenState extends State<DetailScreen> {
   late Future<List<WebtoonEpisodeModel>> episodes;
   late SharedPreferences prefs;
   bool isLiked = false;
+  File? imageFile;
 
   Future initPrefs() async {
     prefs = await SharedPreferences.getInstance();
@@ -110,13 +114,8 @@ class _DetailScreenState extends State<DetailScreen> {
                         ),
                       ],
                     ),
-                    child: Image.network(
-                      widget.thumb,
-                      headers: const {
-                        "User-Agent":
-                            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36",
-                      },
-                    ),
+                    child: ImageNetwork(
+                        image: widget.thumb, height: 300, width: 250),
                   ),
                 ),
               ],

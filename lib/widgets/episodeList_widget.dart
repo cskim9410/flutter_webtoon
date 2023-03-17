@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_webtoon/models/webtoon_episode_model.dart';
+import 'package:image_network/image_network.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class EpisodeList extends StatelessWidget {
@@ -49,12 +50,12 @@ class EpisodeList extends StatelessWidget {
                         ),
                         child: Row(
                           children: [
-                            Image.network(
-                              snapshot.data![index].thumb,
+                            ImageNetwork(
+                              image: snapshot.data![index].thumb,
+                              height: 70,
                               width: 100,
-                              headers: const {
-                                "User-Agent":
-                                    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36",
+                              onTap: () {
+                                onButtonTap(snapshot.data![index].id);
                               },
                             ),
                             const SizedBox(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_webtoon/screens/detail_screen.dart';
+import 'package:image_network/image_network.dart';
 
 class WebtoonCard extends StatelessWidget {
   final String title, thumb, id;
@@ -11,20 +12,24 @@ class WebtoonCard extends StatelessWidget {
     required this.id,
   });
 
+  void navigate(context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => DetailScreen(
+          title: title,
+          thumb: thumb,
+          id: id,
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => DetailScreen(
-              title: title,
-              thumb: thumb,
-              id: id,
-            ),
-          ),
-        );
+        navigate(context);
       },
       child: Column(
         children: [
@@ -44,11 +49,12 @@ class WebtoonCard extends StatelessWidget {
                   ),
                 ],
               ),
-              child: Image.network(
-                thumb,
-                headers: const {
-                  "User-Agent":
-                      "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36",
+              child: ImageNetwork(
+                image: thumb,
+                height: 300,
+                width: 250,
+                onTap: () {
+                  navigate(context);
                 },
               ),
             ),
