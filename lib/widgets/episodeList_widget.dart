@@ -23,56 +23,54 @@ class EpisodeList extends StatelessWidget {
       future: episodes,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return Expanded(
-            child: ListView.builder(
-              itemCount: snapshot.data!.length,
-              itemBuilder: (context, index) {
-                return GestureDetector(
-                  onTap: () {
-                    onButtonTap(snapshot.data![index].id);
-                  },
-                  child: Container(
-                      clipBehavior: Clip.hardEdge,
-                      decoration: BoxDecoration(
-                        border: Border(
-                          top:
-                              const BorderSide(width: 1, color: Colors.black26),
-                          bottom: index == snapshot.data!.length - 1
-                              ? const BorderSide(
-                                  width: 1, color: Colors.black26)
-                              : BorderSide.none,
-                        ),
+          return ListView.builder(
+            itemCount: snapshot.data!.length,
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemBuilder: (context, index) {
+              return GestureDetector(
+                onTap: () {
+                  onButtonTap(snapshot.data![index].id);
+                },
+                child: Container(
+                    clipBehavior: Clip.hardEdge,
+                    decoration: BoxDecoration(
+                      border: Border(
+                        top: const BorderSide(width: 1, color: Colors.black26),
+                        bottom: index == snapshot.data!.length - 1
+                            ? const BorderSide(width: 1, color: Colors.black26)
+                            : BorderSide.none,
                       ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 20,
-                        ),
-                        child: Row(
-                          children: [
-                            Image.network(
-                              snapshot.data![index].thumb,
-                              width: 100,
-                              headers: const {
-                                "User-Agent":
-                                    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36",
-                              },
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 20,
+                      ),
+                      child: Row(
+                        children: [
+                          Image.network(
+                            snapshot.data![index].thumb,
+                            width: 100,
+                            headers: const {
+                              "User-Agent":
+                                  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36",
+                            },
+                          ),
+                          const SizedBox(
+                            width: 20,
+                          ),
+                          Expanded(
+                            child: Text(
+                              snapshot.data![index].title,
+                              overflow: TextOverflow.ellipsis,
                             ),
-                            const SizedBox(
-                              width: 20,
-                            ),
-                            Expanded(
-                              child: Text(
-                                snapshot.data![index].title,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                            const Icon(Icons.keyboard_arrow_right)
-                          ],
-                        ),
-                      )),
-                );
-              },
-            ),
+                          ),
+                          const Icon(Icons.keyboard_arrow_right)
+                        ],
+                      ),
+                    )),
+              );
+            },
           );
         }
         return Container();
