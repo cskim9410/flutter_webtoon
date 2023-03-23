@@ -24,24 +24,18 @@ class EpisodeList extends StatelessWidget {
       future: episodes,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return Expanded(
-            child: ListView.builder(
-              itemCount: snapshot.data!.length,
-              itemBuilder: (context, index) {
-                return GestureDetector(
+          return Column(
+            children: [
+              for (var episode in snapshot.data!)
+                GestureDetector(
                   onTap: () {
-                    onButtonTap(snapshot.data![index].id);
+                    onButtonTap(episode.id);
                   },
                   child: Container(
                       clipBehavior: Clip.hardEdge,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         border: Border(
-                          top:
-                              const BorderSide(width: 1, color: Colors.black26),
-                          bottom: index == snapshot.data!.length - 1
-                              ? const BorderSide(
-                                  width: 1, color: Colors.black26)
-                              : BorderSide.none,
+                          top: BorderSide(width: 1, color: Colors.black26),
                         ),
                       ),
                       child: Padding(
@@ -51,11 +45,11 @@ class EpisodeList extends StatelessWidget {
                         child: Row(
                           children: [
                             ImageNetwork(
-                              image: snapshot.data![index].thumb,
+                              image: episode.thumb,
                               height: 70,
                               width: 100,
                               onTap: () {
-                                onButtonTap(snapshot.data![index].id);
+                                onButtonTap(episode.id);
                               },
                             ),
                             const SizedBox(
@@ -63,7 +57,7 @@ class EpisodeList extends StatelessWidget {
                             ),
                             Expanded(
                               child: Text(
-                                snapshot.data![index].title,
+                                episode.title,
                                 overflow: TextOverflow.ellipsis,
                               ),
                             ),
@@ -71,9 +65,8 @@ class EpisodeList extends StatelessWidget {
                           ],
                         ),
                       )),
-                );
-              },
-            ),
+                )
+            ],
           );
         }
         return Container();

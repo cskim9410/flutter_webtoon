@@ -91,66 +91,68 @@ class _DetailScreenState extends State<DetailScreen> {
           ),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 50),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Hero(
-                  tag: widget.id,
-                  child: Container(
-                    clipBehavior: Clip.hardEdge,
-                    height: 300,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      boxShadow: [
-                        BoxShadow(
-                          offset: const Offset(10, 10),
-                          spreadRadius: 5,
-                          blurRadius: 15,
-                          color: Colors.black.withOpacity(0.3),
-                        ),
-                      ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 50),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Hero(
+                    tag: widget.id,
+                    child: Container(
+                      clipBehavior: Clip.hardEdge,
+                      height: 300,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        boxShadow: [
+                          BoxShadow(
+                            offset: const Offset(10, 10),
+                            spreadRadius: 5,
+                            blurRadius: 15,
+                            color: Colors.black.withOpacity(0.3),
+                          ),
+                        ],
+                      ),
+                      child: ImageNetwork(
+                          image: widget.thumb, height: 300, width: 250),
                     ),
-                    child: ImageNetwork(
-                        image: widget.thumb, height: 300, width: 250),
                   ),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 25,
-            ),
-            FutureBuilder(
-              future: webtoon,
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        snapshot.data!.about,
-                        style: const TextStyle(fontSize: 16),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Text(
-                        '${snapshot.data!.genre} / ${snapshot.data!.age}',
-                      )
-                    ],
-                  );
-                }
-                return const Text('...');
-              },
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            EpisodeList(episodes: episodes, webtoonId: widget.id)
-          ],
+                ],
+              ),
+              const SizedBox(
+                height: 25,
+              ),
+              FutureBuilder(
+                future: webtoon,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          snapshot.data!.about,
+                          style: const TextStyle(fontSize: 16),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Text(
+                          '${snapshot.data!.genre} / ${snapshot.data!.age}',
+                        )
+                      ],
+                    );
+                  }
+                  return const Text('...');
+                },
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              EpisodeList(episodes: episodes, webtoonId: widget.id)
+            ],
+          ),
         ),
       ),
     );
